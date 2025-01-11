@@ -81,12 +81,69 @@ The following table shows the metrics we measured in our environment for another
 
 ![image](https://github.com/kphillip1/azure-soc-honeynet/assets/165929885/3d5a9f41-fd9f-4e0c-bfa1-85da4b249939)
 
-
 ## Summary
 
 In this project, a mini honeynet was deployed in Microsoft Azure, and the logs were sent to a Log Analytics Workspace for analysis. Microsoft Sentinel was utilized to trigger alerts and generate incidents based on the ingested logs. Security metrics were initially gathered from the insecure environment, then after applying security controls, the metrics were measured again. A significant reduction in security events and incidents was observed post-implementation, highlighting the effectiveness of the applied security measures.
 
 It is important to note that if the network resources had been heavily used by regular users, it is possible that the number of security events and alerts could have been higher during the 24-hour period following the application of the security controls.
+
+# Objective
+
+The goal of this lab was to simulate, detect, and mitigate cyber threats using Microsoft Azure’s resources. This involved setting up a honeynet environment, analyzing attack vectors, and implementing security solutions with Microsoft Sentinel and Defender for Cloud.
+
+
+## Lab Setup
+* **Virtual Machines**: Created a resource group with Linux and Windows VMs, intentionally configured to be vulnerable.
+
+* **SQL Server Configuration**: Installed SQL Server on the Windows VM and forwarded logs to the Event Viewer.
+
+* **Attack VM**: Configured an attacker machine with tools to exploit vulnerabilities in the target VMs.
+
+* **Log Analytics**: Set up a Log Analytics Workspace for monitoring and querying data from various resources.
+
+
+
+## Procedure
+### Honeynet Configuration:
+* Monitored unauthorized login attempts using SSH on the Linux VM (auth.log) and correlated IP addresses with geographic locations using geoip.csv.
+* Set up NSG flow logs and continuous exports to Log Analytics Workspace for detailed traffic analysis.
+
+
+
+### Microsoft Sentinel Integration:
+* Enabled Microsoft Defender for Cloud and configured data collection for VMs, storage accounts, and key vaults.
+  
+* Imported JSON-based workbooks to visualize global attack origins and trends.
+  
+* Created custom analytics rules for identifying high-priority incidents, such as repeated login failures.
+
+
+
+
+### Incident Detection & Mitigation:
+* Hardened NSG rules to restrict access by IP, implemented firewall policies, and remediated flagged incidents in Sentinel.
+  
+* Addressed security posture recommendations and compliance standards (e.g., NIST).
+
+  
+
+## Key Tools & Technologies
+* **Azure Services**: Virtual Machines, Log Analytics, Microsoft Sentinel, Azure Defender, and Key Vault.
+  
+* **Languages & Queries**: KQL (Kusto Query Language) for log analysis and JSON for workbook configurations.
+
+* **Monitoring Tools**: NSG Flow Logs, Activity Logs, and custom diagnostics settings.
+
+  
+
+## Results
+* Successfully identified and visualized attack patterns using Sentinel dashboards.
+  
+* Hardened system configurations to mitigate vulnerabilities and improve security posture.
+  
+* Generated actionable insights through analytics rules and continuous monitoring.
+
+
 
 
 ## KQL Queries
